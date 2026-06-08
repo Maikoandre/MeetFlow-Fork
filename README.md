@@ -112,6 +112,34 @@ Caso prefira rodar sem Docker, siga os passos abaixo. Certifique-se de ter uma i
 
 ---
 
+### 📱 C. Execução do Aplicativo Móvel (Flutter)
+
+O aplicativo móvel consome a API RESTful segura e deve ser inicializado a partir do diretório `meetflow_app/`.
+
+1. **Acesse o diretório do aplicativo:**
+   ```bash
+   cd meetflow_app
+   ```
+
+2. **Instale as dependências do Flutter:**
+   ```bash
+   flutter pub get
+   ```
+
+3. **Inicie o aplicativo:**
+   Certifique-se de ter um emulador Android/iOS ativo ou um dispositivo físico conectado.
+   ```bash
+   flutter run
+   ```
+
+4. **Configuração de Conexão com a API (Login):**
+   Ao abrir o aplicativo, insira a URL Base da API correspondente:
+   - **Emulador Android**: `http://10.0.2.2:8000/api/` (endereço de loopback para acessar o localhost da máquina hospedeira).
+   - **Emulador iOS ou dispositivo físico**: Insira o IP de sua máquina local na rede (ex: `http://192.168.1.100:8000/api/`).
+   - Use as credenciais criadas para testes (ex: usuário `user1` com a senha `password123`).
+
+---
+
 ## 📂 Estrutura do Repositório
 
 - **`/` (Raiz)**: Contém o código-fonte da API Django (`meetflow/`), app Django (`events/`), Dockerfiles e arquivos de gerenciamento de pacotes do backend.
