@@ -1,0 +1,3 @@
+[submodule "meetflow_app"]
+	path = meetflow_app
+	url = https://github.com/Maikoandre/meetflow_app
