@@ -17,7 +17,7 @@ O sistema conta com a implementação completa dos seguintes requisitos:
    - Uso apropriado de Serializers e ViewSets.
 
 2. **Cliente Móvel (Flutter)**:
-   - Desenvolvido em tecnologia não-Django ([meetflow_app](file:///home/maiko/Projects/MeetFlow-Fork/meetflow_app)).
+   - Desenvolvido em tecnologia não-Django ([client](file:///home/maiko/Projects/MeetFlow-Fork/client)).
    - Implementa fluxo de Login solicitando tokens via requisição POST ao DOT (`/o/token/`).
    - Persistência criptografada dos tokens no dispositivo e renovação automática de sessão (*Refresh Token*) via interceptores.
    - Interface funcional e responsiva para listagem de eventos (com paginação/infinite scroll), visualização de detalhes, realização de inscrições e cancelamentos.
@@ -114,11 +114,11 @@ Caso prefira rodar sem Docker, siga os passos abaixo. Certifique-se de ter uma i
 
 ### 📱 C. Execução do Aplicativo Móvel (Flutter)
 
-O aplicativo móvel consome a API RESTful segura e deve ser inicializado a partir do diretório `meetflow_app/`.
+O aplicativo móvel consome a API RESTful segura e deve ser inicializado a partir do diretório `client/`.
 
 1. **Acesse o diretório do aplicativo:**
    ```bash
-   cd meetflow_app
+   cd client
    ```
 
 2. **Instale as dependências do Flutter:**
@@ -142,8 +142,8 @@ O aplicativo móvel consome a API RESTful segura e deve ser inicializado a parti
 
 ## 📂 Estrutura do Repositório
 
-- **`/` (Raiz)**: Contém o código-fonte da API Django (`meetflow/`), app Django (`events/`), Dockerfiles e arquivos de gerenciamento de pacotes do backend.
-- **`/meetflow_app` (Cliente)**: Contém o aplicativo móvel desenvolvido em Flutter.
+- **`/api` (Backend)**: Contém o código-fonte da API Django (`meetflow/`), app Django (`events/`), Dockerfile e arquivos de gerenciamento de pacotes do backend.
+- **`/client` (Cliente)**: Contém o aplicativo móvel desenvolvido em Flutter.
 
 ---
 

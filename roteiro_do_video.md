@@ -72,7 +72,7 @@ gantt
 ---
 
 ### Parte 3: Demonstração do Aplicativo Cliente - Flutter (04:00 - 08:00)
-* **O que mostrar na tela**: Emulador Android ou iOS rodando o `meetflow_app`.
+* **O que mostrar na tela**: Emulador Android ou iOS rodando o `client`.
 * **Quem fala**: Integrante 3 (ou Integrante 2)
 
 > **[Ação em Tela]**: Mostrar a tela de login do aplicativo no emulador, com o campo de Base URL preenchido (`http://10.0.2.2:8000/api/` ou o IP local da máquina).
@@ -122,7 +122,7 @@ gantt
 * **O que mostrar na tela**: VS Code exibindo o código-fonte da API Django e do aplicativo Flutter.
 * **Quem fala**: Qualquer integrante
 
-> **[Ação em Tela]**: Mostrar o arquivo [settings.py](file:///home/maiko/Projects/MeetFlow-Fork/meetflow/settings.py) (focando na configuração do REST_FRAMEWORK e INSTALLED_APPS) e depois o arquivo [api_service.dart](file:///home/maiko/Projects/MeetFlow-Fork/meetflow_app/lib/services/api_service.dart).
+> **[Ação em Tela]**: Mostrar o arquivo [settings.py](file:///home/maiko/Projects/MeetFlow-Fork/api/meetflow/settings.py) (focando na configuração do REST_FRAMEWORK e INSTALLED_APPS) e depois o arquivo [api_service.dart](file:///home/maiko/Projects/MeetFlow-Fork/client/lib/services/api_service.dart).
 
 > **[Fala do Apresentador]**
 > *"Para fechar a parte técnica, vamos dar uma olhada rápida no código.

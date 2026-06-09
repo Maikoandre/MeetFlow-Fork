@@ -18,11 +18,11 @@ services:
       retries: 10
 
   web:
-    build: .
+    build: ./api
     # Adicionamos um pequeno delay (sleep) por segurança e rodamos o migrate automaticamente
     command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     volumes:
-      - .:/app
+      - ./api:/app
     ports:
       - "8000:8000"
     environment:

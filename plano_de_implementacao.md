@@ -1,6 +1,6 @@
 # Plano de Implementação: MeetFlow com API RESTful Segura (OAuth2)
 
-Este plano descreve detalhadamente as etapas necessárias para atender aos requisitos do Trabalho Final de Programação para Web I, integrando o backend Django/DRF ao Django OAuth Toolkit (DOT) e concluindo o desenvolvimento do cliente móvel Flutter ([meetflow_app](file:///home/maiko/Projects/MeetFlow-Fork/meetflow_app)).
+Este plano descreve detalhadamente as etapas necessárias para atender aos requisitos do Trabalho Final de Programação para Web I, integrando o backend Django/DRF ao Django OAuth Toolkit (DOT) e concluindo o desenvolvimento do cliente móvel Flutter ([client](file:///home/maiko/Projects/MeetFlow-Fork/client)).
 
 ---
 
@@ -24,13 +24,13 @@ O projeto deve conter:
 ## 🛠️ 2. Etapa 1: Backend Django & DRF
 
 ### 2.1. Configuração de Dependências
-1. Adicionar `django-oauth-toolkit` ao arquivo [pyproject.toml](file:///home/maiko/Projects/MeetFlow-Fork/pyproject.toml) e ao [requirements.txt](file:///home/maiko/Projects/MeetFlow-Fork/requirements.txt).
+1. Adicionar `django-oauth-toolkit` ao arquivo [pyproject.toml](file:///home/maiko/Projects/MeetFlow-Fork/api/pyproject.toml) e ao [requirements.txt](file:///home/maiko/Projects/MeetFlow-Fork/api/requirements.txt).
 2. Instalar a nova dependência no ambiente virtual:
    ```bash
    pip install django-oauth-toolkit
    ```
 
-### 2.2. Atualização das Configurações ([meetflow/settings.py](file:///home/maiko/Projects/MeetFlow-Fork/meetflow/settings.py))
+### 2.2. Atualização das Configurações ([meetflow/settings.py](file:///home/maiko/Projects/MeetFlow-Fork/api/meetflow/settings.py))
 1. Adicionar `'oauth2_provider'` à lista de `INSTALLED_APPS`.
 2. Configurar o framework REST para usar a autenticação OAuth2 do DOT por padrão:
    ```python
@@ -55,7 +55,7 @@ O projeto deve conter:
    ]
    ```
 
-### 2.3. Roteamento de URLs ([meetflow/urls.py](file:///home/maiko/Projects/MeetFlow-Fork/meetflow/urls.py))
+### 2.3. Roteamento de URLs ([meetflow/urls.py](file:///home/maiko/Projects/MeetFlow-Fork/api/meetflow/urls.py))
 Incluir as rotas padrão do Django OAuth Toolkit para permitir a geração e revogação de tokens:
 ```python
 urlpatterns = [
@@ -81,11 +81,11 @@ Para facilitar o setup e desenvolvimento, criar um script ou comando administrat
 
 ---
 
-## 📱 3. Etapa 2: Cliente Flutter (`meetflow_app`)
+## 📱 3. Etapa 2: Cliente Flutter (`client`)
 
 O aplicativo precisa ser ajustado para trocar o método de autenticação de **Basic Auth** para **OAuth2 Bearer Token**.
 
-### 3.1. Armazenamento de Tokens ([storage_service.dart](file:///home/maiko/Projects/MeetFlow-Fork/meetflow_app/lib/services/storage_service.dart))
+### 3.1. Armazenamento de Tokens ([storage_service.dart](file:///home/maiko/Projects/MeetFlow-Fork/client/lib/services/storage_service.dart))
 Modificar o serviço de persistência segura para armazenar tokens OAuth em vez da senha do usuário em texto puro:
 - Adicionar chaves para `access_token` e `refresh_token`.
 - Criar métodos para salvar, ler e expirar os tokens:
@@ -96,7 +96,7 @@ Modificar o serviço de persistência segura para armazenar tokens OAuth em vez 
   Future<void> clearTokens() async { ... }
   ```
 
-### 3.2. Interceptador de Requisições ([api_service.dart](file:///home/maiko/Projects/MeetFlow-Fork/meetflow_app/lib/services/api_service.dart))
+### 3.2. Interceptador de Requisições ([api_service.dart](file:///home/maiko/Projects/MeetFlow-Fork/client/lib/services/api_service.dart))
 Atualizar o interceptador do `Dio` para anexar o token de acesso como cabeçalho `Bearer`:
 ```dart
 onRequest: (options, handler) async {
@@ -109,7 +109,7 @@ onRequest: (options, handler) async {
 }
 ```
 
-### 3.3. Fluxo de Autenticação ([login_viewmodel.dart](file:///home/maiko/Projects/MeetFlow-Fork/meetflow_app/lib/viewmodels/login_viewmodel.dart))
+### 3.3. Fluxo de Autenticação ([login_viewmodel.dart](file:///home/maiko/Projects/MeetFlow-Fork/client/lib/viewmodels/login_viewmodel.dart))
 Alterar o método `login` para realizar uma chamada `POST` ao endpoint de tokens (`/o/token/`):
 - **Parâmetros da requisição**:
   ```json
@@ -124,7 +124,7 @@ Alterar o método `login` para realizar uma chamada `POST` ao endpoint de tokens
 
 ### 3.4. Implementação de Telas e Funcionalidades Pendentes
 1. **Detalhes do Evento**:
-   - Criar a tela de detalhes de um evento acessada a partir de [event_list_view.dart](file:///home/maiko/Projects/MeetFlow-Fork/meetflow_app/lib/views/event_list_view.dart).
+    - Criar a tela de detalhes de um evento acessada a partir de [event_list_view.dart](file:///home/maiko/Projects/MeetFlow-Fork/client/lib/views/event_list_view.dart).
    - Adicionar botão **"Inscrever-se"** que realiza um `POST` no endpoint `/api/inscricoes/` enviando o `evento` e o `participante` logado.
 2. **Minhas Inscrições**:
    - Criar uma tela dedicada (ou aba) para exibir eventos em que o usuário está inscrito (filtrando `/api/inscricoes/` pelo ID do participante).
@@ -142,7 +142,7 @@ Alterar o método `login` para realizar uma chamada `POST` ao endpoint de tokens
 ### 4.1. Estruturação do Repositório
 Para atender à regra de entrega, a estrutura do repositório deve estar claramente dividida:
 - O backend Django deve ser mapeado/movido (ou referenciado claramente) como pasta `/api`.
-- O cliente Flutter ([meetflow_app](file:///home/maiko/Projects/MeetFlow-Fork/meetflow_app)) deve estar mapeado/movido como pasta `/client` (ou mantido como submódulo e referenciado com instruções claras no root). 
+- O cliente Flutter ([client](file:///home/maiko/Projects/MeetFlow-Fork/client)) deve estar mapeado/movido como pasta `/client` (ou mantido como submódulo e referenciado com instruções claras no root). 
 - *Nota*: A forma mais simples de cumprir a regra `/api` e `/client` mantendo os submódulos é configurar links simbólicos ou renomear as pastas de acordo com as exigências.
 
 ### 4.2. Documentação no README.md

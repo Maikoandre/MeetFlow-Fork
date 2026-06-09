@@ -111,6 +111,17 @@ class MeetFlowAPITests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Usuario.objects.filter(id=self.profile.id).count(), 0)
 
+    def test_usuario_me_authenticated(self):
+        self.client.force_authenticate(user=self.user)
+        response = self.client.get('/api/users/me/')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['nome'], "Test User")
+
+    def test_usuario_me_anonymous(self):
+        response = self.client.get('/api/users/me/')
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
     # --- Evento API Tests ---
     def test_evento_list_get(self):
         response = self.client.get('/api/eventos/')
